@@ -48,10 +48,9 @@ func (this *RaftNode) HandleRequestVote(args RequestVoteArgs, reply *RequestVote
 	// THIS REQUEST, OR NOT
 	// All the variables that you need for the conditions have been defined above.
 	//-------------------------------------------------------------------------------------------/
-	if  { // TODO: what are the conditions necessary to vote? HINT: there's multiple.
-
+	if  (this.votedFor == -1 || this.votedFor == args.CandidateId) && (args.LastLogIndex >= nodeLastLogIndex) {
 		// TODO: indicate that it has voted.
-
+		reply.VoteGranted = true
 	} else {
 		reply.VoteGranted = false
 	}
@@ -133,7 +132,8 @@ func (this *RaftNode) HandleAppendEntries(args AppendEntriesArgs, reply *AppendE
 				logInsertIndex++
 				newEntriesIndex++
 			}
-
+			//1 2 3 4 5
+			//1 2 3   
 			// At the end of this loop:
 			// - logInsertIndex points at the end of the log, or an index where the
 			//   term mismatches with an entry from the leader
