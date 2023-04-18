@@ -123,9 +123,8 @@ func (this *RaftNode) broadcastHeartbeats() {
 						
 						//leader [2,2,2,1,2]
 						this.nextIndex[peerId] = this.commitIndex + 1
-						
 						// matchIndex : the highest index of log entries in a node
-						// matchIndex : 0 0 0
+						
 						this.matchIndex[peerId] = this.commitIndex - len(entries)// last index of peer log
 						
 						//-------------------------------------------------------------------------------------------/
